@@ -62,12 +62,17 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				marketplace: {
-					"deep-black": "#1A1A1A",
-					"saddle-brown": "#8B4513",
-					"warm-gray": "#2D1810",
-					"light-sand": "#D4AF37",
-					"cream": "#FFFFFF",
+				silkroad: {
+					"dark-bg": "#1a1a1a",
+					"nav-bg": "#2d2d2d", 
+					"card-bg": "#f8f8f8",
+					"border": "#cccccc",
+					"text-primary": "#333333",
+					"text-secondary": "#666666",
+					"link-blue": "#3366cc",
+					"button-green": "#669966",
+					"header-gray": "#999999",
+					"light-gray": "#f5f5f5"
 				}
 			},
 			borderRadius: {

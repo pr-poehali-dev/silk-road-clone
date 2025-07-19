@@ -1,324 +1,310 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
-  const [cartItems, setCartItems] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
-    { name: 'Смартфоны', icon: 'Smartphone', count: 150 },
-    { name: 'Ноутбуки', icon: 'Laptop', count: 89 },
-    { name: 'Планшеты', icon: 'Tablet', count: 45 },
-    { name: 'Наушники', icon: 'Headphones', count: 120 },
-    { name: 'Аксессуары', icon: 'Cable', count: 200 },
-    { name: 'Умные часы', icon: 'Watch', count: 67 }
+    'Books & Media',
+    'Cannabis',
+    'Counterfeit',
+    'Digital Goods',
+    'Documents',
+    'Drugs',
+    'Electronics',
+    'Erotica',
+    'Jewelry',
+    'Money',
+    'Other',
+    'Services',
+    'Weapons'
   ];
 
-  const featuredProducts = [
+  const featuredListings = [
     {
       id: 1,
-      name: 'iPhone 15 Pro',
-      price: '99 990 ₽',
-      originalPrice: '109 990 ₽',
-      image: '/placeholder.svg',
-      rating: 4.8,
-      reviews: 342,
-      seller: 'TechStore',
-      badge: 'Хит продаж'
+      title: 'Premium Quality Product',
+      seller: 'TrustedVendor',
+      price: '$25.00',
+      rating: '★★★★★',
+      reviews: 42,
+      shipped: 'Ships from: Netherlands',
+      category: 'Digital Goods'
     },
     {
       id: 2,
-      name: 'MacBook Air M2',
-      price: '119 990 ₽',
-      originalPrice: '129 990 ₽',
-      image: '/placeholder.svg',
-      rating: 4.9,
-      reviews: 198,
-      seller: 'AppleShop',
-      badge: 'Новинка'
+      title: 'High Grade Material',
+      seller: 'ReliableSource',
+      price: '$150.00',
+      rating: '★★★★☆',
+      reviews: 18,
+      shipped: 'Ships from: Germany',
+      category: 'Other'
     },
     {
       id: 3,
-      name: 'Samsung Galaxy S24',
-      price: '89 990 ₽',
-      originalPrice: '99 990 ₽',
-      image: '/placeholder.svg',
-      rating: 4.7,
-      reviews: 256,
-      seller: 'MobileWorld',
-      badge: 'Скидка'
+      title: 'Express Service Available',
+      seller: 'FastDelivery',
+      price: '$75.00',
+      rating: '★★★★★',
+      reviews: 156,
+      shipped: 'Ships from: USA',
+      category: 'Services'
     },
     {
       id: 4,
-      name: 'AirPods Pro 2',
-      price: '24 990 ₽',
-      originalPrice: '27 990 ₽',
-      image: '/placeholder.svg',
-      rating: 4.6,
-      reviews: 412,
-      seller: 'AudioTech',
-      badge: 'Популярное'
+      title: 'Bulk Discount Available',
+      seller: 'BulkSupplier',
+      price: '$200.00',
+      rating: '★★★★☆',
+      reviews: 23,
+      shipped: 'Ships from: Canada',
+      category: 'Electronics'
     }
   ];
 
-  const addToCart = (productId: number) => {
-    setCartItems(prev => prev + 1);
-  };
+  const vendors = [
+    { name: 'TrustedVendor', rating: '★★★★★', deals: 342, joined: 'Jan 2013' },
+    { name: 'ReliableSource', rating: '★★★★☆', deals: 156, joined: 'Mar 2013' },
+    { name: 'FastDelivery', rating: '★★★★★', deals: 89, joined: 'Feb 2013' },
+    { name: 'BulkSupplier', rating: '★★★★☆', deals: 67, joined: 'Apr 2013' }
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-marketplace-cream to-gray-50">
+    <div className="min-h-screen bg-silkroad-light-gray">
       {/* Header */}
-      <header className="bg-marketplace-deep-black text-white shadow-lg">
-        <div className="container mx-auto px-4 py-4">
+      <header className="bg-silkroad-dark-bg text-white border-b border-silkroad-border">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold">SILK ROAD</h1>
-              <span className="text-marketplace-light-sand text-sm">MARKETPLACE</span>
+            <div className="flex items-center space-x-6">
+              <h1 className="text-xl font-bold">Silk Road</h1>
+              <nav className="hidden md:flex space-x-4 text-sm">
+                <a href="#" className="text-silkroad-header-gray hover:text-white">Home</a>
+                <a href="#" className="text-silkroad-header-gray hover:text-white">Listings</a>
+                <a href="#" className="text-silkroad-header-gray hover:text-white">Vendors</a>
+                <a href="#" className="text-silkroad-header-gray hover:text-white">Forums</a>
+                <a href="#" className="text-silkroad-header-gray hover:text-white">Help</a>
+              </nav>
             </div>
             
-            {/* Search */}
-            <div className="flex-1 max-w-2xl mx-8">
-              <div className="relative">
-                <Input
-                  placeholder="Поиск товаров..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 bg-marketplace-warm-gray border-marketplace-saddle-brown text-white placeholder:text-gray-400"
-                />
-                <Icon name="Search" className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              </div>
-            </div>
-
-            {/* User Actions */}
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-marketplace-warm-gray">
-                <Icon name="User" className="h-5 w-5 mr-2" />
-                Войти
-              </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-marketplace-warm-gray relative">
-                <Icon name="ShoppingCart" className="h-5 w-5 mr-2" />
-                Корзина
-                {cartItems > 0 && (
-                  <Badge className="absolute -top-2 -right-2 bg-marketplace-light-sand text-black text-xs">
-                    {cartItems}
-                  </Badge>
-                )}
-              </Button>
+            <div className="flex items-center space-x-4 text-sm">
+              <span className="text-silkroad-header-gray">Welcome, anonymous</span>
+              <a href="#" className="text-silkroad-link-blue hover:underline">Login</a>
+              <a href="#" className="text-silkroad-link-blue hover:underline">Register</a>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Navigation */}
-      <nav className="bg-marketplace-saddle-brown text-white">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex space-x-6">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-marketplace-warm-gray">
-                <Icon name="Menu" className="h-4 w-4 mr-2" />
-                Каталог
-              </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-marketplace-warm-gray">
-                Бренды
-              </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-marketplace-warm-gray">
-                Акции
-              </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-marketplace-warm-gray">
-                Доставка
-              </Button>
+      {/* Navigation Bar */}
+      <nav className="bg-silkroad-nav-bg text-white">
+        <div className="container mx-auto px-4 py-2">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex space-x-4">
+              <a href="#" className="hover:text-silkroad-header-gray">Browse Listings</a>
+              <a href="#" className="hover:text-silkroad-header-gray">Search Vendors</a>
+              <a href="#" className="hover:text-silkroad-header-gray">Recent Reviews</a>
             </div>
-            <div className="flex items-center space-x-4 text-sm">
-              <span className="flex items-center">
-                <Icon name="Shield" className="h-4 w-4 mr-1" />
-                Безопасные сделки
-              </span>
-              <span className="flex items-center">
-                <Icon name="Truck" className="h-4 w-4 mr-1" />
-                Быстрая доставка
-              </span>
+            <div className="flex items-center space-x-2">
+              <span className="text-silkroad-header-gray">Online:</span>
+              <span className="text-green-400">2,847 users</span>
             </div>
           </div>
         </div>
       </nav>
 
-      <main className="container mx-auto px-4 py-8">
-        {/* Hero Section */}
-        <section className="mb-12">
-          <div className="bg-gradient-to-r from-marketplace-deep-black to-marketplace-saddle-brown rounded-lg p-8 text-white">
-            <div className="max-w-2xl">
-              <h2 className="text-4xl font-bold mb-4">Лучшая электроника по выгодным ценам</h2>
-              <p className="text-xl mb-6 text-gray-200">
-                Смартфоны, ноутбуки, планшеты и аксессуары от проверенных продавцов
-              </p>
-              <Button size="lg" className="bg-marketplace-light-sand text-black hover:bg-yellow-400">
-                <Icon name="Search" className="h-5 w-5 mr-2" />
-                Начать покупки
-              </Button>
-            </div>
-          </div>
-        </section>
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            {/* Search */}
+            <Card className="mb-6 bg-silkroad-card-bg border-silkroad-border">
+              <CardHeader className="pb-3">
+                <h3 className="font-semibold text-silkroad-text-primary">Search Listings</h3>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <Input
+                  placeholder="Search for items..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="text-sm"
+                />
+                <Button className="w-full bg-silkroad-button-green hover:bg-green-600 text-white text-sm">
+                  Search
+                </Button>
+              </CardContent>
+            </Card>
 
-        {/* Categories */}
-        <section className="mb-12">
-          <h3 className="text-2xl font-bold mb-6 text-marketplace-deep-black">Популярные категории</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {categories.map((category, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow cursor-pointer border-marketplace-saddle-brown/20">
-                <CardContent className="p-6 text-center">
-                  <Icon 
-                    name={category.icon as any} 
-                    className="h-8 w-8 mx-auto mb-3 text-marketplace-saddle-brown" 
-                  />
-                  <h4 className="font-semibold mb-1 text-marketplace-deep-black">{category.name}</h4>
-                  <p className="text-sm text-gray-600">{category.count} товаров</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+            {/* Categories */}
+            <Card className="mb-6 bg-silkroad-card-bg border-silkroad-border">
+              <CardHeader className="pb-3">
+                <h3 className="font-semibold text-silkroad-text-primary">Categories</h3>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-1">
+                  {categories.map((category, index) => (
+                    <a
+                      key={index}
+                      href="#"
+                      className="block px-4 py-2 text-sm text-silkroad-link-blue hover:bg-gray-100 border-b border-gray-200 last:border-b-0"
+                    >
+                      {category}
+                    </a>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-        {/* Featured Products */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-2xl font-bold text-marketplace-deep-black">Рекомендуемые товары</h3>
-            <Button variant="outline" className="border-marketplace-saddle-brown text-marketplace-saddle-brown hover:bg-marketplace-saddle-brown hover:text-white">
-              Смотреть все
-              <Icon name="ArrowRight" className="h-4 w-4 ml-2" />
-            </Button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product) => (
-              <Card key={product.id} className="hover:shadow-xl transition-shadow">
-                <CardHeader className="p-0">
-                  <div className="relative">
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      className="w-full h-48 object-cover rounded-t-lg"
-                    />
-                    <Badge className="absolute top-2 left-2 bg-marketplace-light-sand text-black">
-                      {product.badge}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="p-4">
-                  <CardTitle className="text-lg mb-2 text-marketplace-deep-black">{product.name}</CardTitle>
-                  
-                  <div className="flex items-center mb-2">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Icon 
-                          key={i}
-                          name="Star" 
-                          className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
-                        />
-                      ))}
-                      <span className="text-sm text-gray-600 ml-1">
-                        {product.rating} ({product.reviews})
-                      </span>
+            {/* Top Vendors */}
+            <Card className="bg-silkroad-card-bg border-silkroad-border">
+              <CardHeader className="pb-3">
+                <h3 className="font-semibold text-silkroad-text-primary">Top Vendors</h3>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {vendors.map((vendor, index) => (
+                  <div key={index} className="border-b border-gray-200 pb-2 last:border-b-0">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <a href="#" className="font-medium text-silkroad-link-blue hover:underline text-sm">
+                          {vendor.name}
+                        </a>
+                        <div className="text-xs text-silkroad-text-secondary">
+                          {vendor.rating} ({vendor.deals} deals)
+                        </div>
+                        <div className="text-xs text-silkroad-text-secondary">
+                          Joined: {vendor.joined}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="mb-2">
-                    <span className="text-lg font-bold text-marketplace-deep-black">{product.price}</span>
-                    <span className="text-sm text-gray-500 line-through ml-2">{product.originalPrice}</span>
-                  </div>
-                  
-                  <p className="text-sm text-gray-600">Продавец: {product.seller}</p>
-                </CardContent>
-                
-                <CardFooter className="p-4 pt-0">
-                  <Button 
-                    onClick={() => addToCart(product.id)}
-                    className="w-full bg-marketplace-saddle-brown hover:bg-marketplace-warm-gray"
-                  >
-                    <Icon name="ShoppingCart" className="h-4 w-4 mr-2" />
-                    В корзину
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
+                ))}
+              </CardContent>
+            </Card>
           </div>
-        </section>
 
-        {/* Stats */}
-        <section className="bg-marketplace-deep-black text-white rounded-lg p-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <h4 className="text-3xl font-bold text-marketplace-light-sand mb-2">10K+</h4>
-              <p className="text-gray-300">Товаров</p>
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              <Card className="bg-silkroad-card-bg border-silkroad-border text-center p-4">
+                <div className="text-2xl font-bold text-silkroad-text-primary">1,247</div>
+                <div className="text-sm text-silkroad-text-secondary">Active Listings</div>
+              </Card>
+              <Card className="bg-silkroad-card-bg border-silkroad-border text-center p-4">
+                <div className="text-2xl font-bold text-silkroad-text-primary">89</div>
+                <div className="text-sm text-silkroad-text-secondary">Trusted Vendors</div>
+              </Card>
+              <Card className="bg-silkroad-card-bg border-silkroad-border text-center p-4">
+                <div className="text-2xl font-bold text-silkroad-text-primary">2,847</div>
+                <div className="text-sm text-silkroad-text-secondary">Users Online</div>
+              </Card>
             </div>
-            <div>
-              <h4 className="text-3xl font-bold text-marketplace-light-sand mb-2">500+</h4>
-              <p className="text-gray-300">Продавцов</p>
-            </div>
-            <div>
-              <h4 className="text-3xl font-bold text-marketplace-light-sand mb-2">24/7</h4>
-              <p className="text-gray-300">Поддержка</p>
-            </div>
-            <div>
-              <h4 className="text-3xl font-bold text-marketplace-light-sand mb-2">99%</h4>
-              <p className="text-gray-300">Довольных клиентов</p>
-            </div>
+
+            {/* Welcome Message */}
+            <Card className="mb-6 bg-silkroad-card-bg border-silkroad-border">
+              <CardContent className="p-6">
+                <h2 className="text-xl font-bold mb-3 text-silkroad-text-primary">
+                  Welcome to Silk Road
+                </h2>
+                <p className="text-silkroad-text-secondary text-sm leading-relaxed mb-4">
+                  Silk Road is an anonymous marketplace. Browse listings from our trusted vendors 
+                  offering a wide variety of products. All transactions are conducted using Bitcoin 
+                  for maximum privacy and security.
+                </p>
+                <div className="bg-yellow-50 border border-yellow-200 p-3 rounded text-sm">
+                  <strong className="text-yellow-800">Security Notice:</strong>
+                  <span className="text-yellow-700 ml-1">
+                    Always use Tor browser and verify vendor ratings before making purchases.
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Featured Listings */}
+            <Card className="bg-silkroad-card-bg border-silkroad-border">
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <h3 className="font-semibold text-silkroad-text-primary">Featured Listings</h3>
+                  <Button variant="outline" size="sm" className="text-silkroad-link-blue border-silkroad-border">
+                    View All
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {featuredListings.map((listing) => (
+                    <div key={listing.id} className="border border-silkroad-border rounded-lg p-4 hover:bg-gray-50">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-silkroad-text-primary hover:text-silkroad-link-blue cursor-pointer">
+                            {listing.title}
+                          </h4>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <span className="text-sm text-silkroad-text-secondary">by</span>
+                            <a href="#" className="text-sm text-silkroad-link-blue hover:underline">
+                              {listing.seller}
+                            </a>
+                            <Badge variant="outline" className="text-xs border-silkroad-border">
+                              {listing.category}
+                            </Badge>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-bold text-silkroad-text-primary">{listing.price}</div>
+                          <div className="text-xs text-silkroad-text-secondary">{listing.rating}</div>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center text-xs text-silkroad-text-secondary">
+                        <span>{listing.shipped}</span>
+                        <span>{listing.reviews} reviews</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </section>
-      </main>
+        </div>
+      </div>
 
       {/* Footer */}
-      <footer className="bg-marketplace-deep-black text-white mt-16">
-        <div className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <footer className="bg-silkroad-nav-bg text-white mt-12">
+        <div className="container mx-auto px-4 py-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
             <div>
-              <h5 className="font-bold text-lg mb-4 text-marketplace-light-sand">SILK ROAD</h5>
-              <p className="text-gray-400 text-sm">
-                Надежный маркетплейс электроники с лучшими ценами и проверенными продавцами.
-              </p>
-            </div>
-            <div>
-              <h6 className="font-semibold mb-4">Покупателям</h6>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-marketplace-light-sand">Как сделать заказ</a></li>
-                <li><a href="#" className="hover:text-marketplace-light-sand">Способы оплаты</a></li>
-                <li><a href="#" className="hover:text-marketplace-light-sand">Доставка</a></li>
-                <li><a href="#" className="hover:text-marketplace-light-sand">Возврат товара</a></li>
+              <h5 className="font-semibold mb-3">Security</h5>
+              <ul className="space-y-2 text-silkroad-header-gray">
+                <li><a href="#" className="hover:text-white">Tor Browser Required</a></li>
+                <li><a href="#" className="hover:text-white">Bitcoin Tumbling</a></li>
+                <li><a href="#" className="hover:text-white">PGP Encryption</a></li>
+                <li><a href="#" className="hover:text-white">Security Tips</a></li>
               </ul>
             </div>
             <div>
-              <h6 className="font-semibold mb-4">Продавцам</h6>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-marketplace-light-sand">Стать продавцом</a></li>
-                <li><a href="#" className="hover:text-marketplace-light-sand">Правила торговли</a></li>
-                <li><a href="#" className="hover:text-marketplace-light-sand">Комиссии</a></li>
-                <li><a href="#" className="hover:text-marketplace-light-sand">Поддержка</a></li>
+              <h5 className="font-semibold mb-3">Marketplace</h5>
+              <ul className="space-y-2 text-silkroad-header-gray">
+                <li><a href="#" className="hover:text-white">Vendor Guidelines</a></li>
+                <li><a href="#" className="hover:text-white">Buyer Protection</a></li>
+                <li><a href="#" className="hover:text-white">Dispute Resolution</a></li>
+                <li><a href="#" className="hover:text-white">Fee Structure</a></li>
               </ul>
             </div>
             <div>
-              <h6 className="font-semibold mb-4">Контакты</h6>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li className="flex items-center">
-                  <Icon name="Phone" className="h-4 w-4 mr-2" />
-                  8 800 555-35-35
-                </li>
-                <li className="flex items-center">
-                  <Icon name="Mail" className="h-4 w-4 mr-2" />
-                  support@silkroad.ru
-                </li>
-                <li className="flex items-center">
-                  <Icon name="Clock" className="h-4 w-4 mr-2" />
-                  24/7
-                </li>
+              <h5 className="font-semibold mb-3">Support</h5>
+              <ul className="space-y-2 text-silkroad-header-gray">
+                <li><a href="#" className="hover:text-white">Forum Help</a></li>
+                <li><a href="#" className="hover:text-white">Contact Staff</a></li>
+                <li><a href="#" className="hover:text-white">Technical Issues</a></li>
+                <li><a href="#" className="hover:text-white">Account Problems</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-marketplace-saddle-brown mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 Silk Road Marketplace. Все права защищены.</p>
+          <div className="border-t border-gray-600 mt-6 pt-4 text-center text-silkroad-header-gray text-xs">
+            <p>© 2013 Silk Road. All transactions are final. Use at your own risk.</p>
           </div>
         </div>
       </footer>
